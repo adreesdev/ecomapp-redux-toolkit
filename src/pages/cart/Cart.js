@@ -9,6 +9,7 @@ const Cart = () => {
 
 	useEffect(() => {
 		dispatch(calculateTotals());
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
 	const { cart, totalItems, totalPrice } = useSelector((state) => state.cart);
