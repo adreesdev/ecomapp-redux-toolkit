@@ -1,25 +1,28 @@
-import logo from './logo.svg';
-import './App.css';
-
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+import React from "react";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import HomePage from "./pages/home/HomePage";
+import MensPage from "./pages/products/MensPage";
+import WomensPage from "./pages/products/WomensPage";
+import KidsPage from "./pages/products/KidsPage";
+import Header from "./components/header/Header";
+import ProductDetails from "./pages/products/ProductDetails";
+import Cart from "./pages/cart/Cart";
+const App = () => {
+	return (
+		<>
+			<BrowserRouter>
+				<Header />
+				<Routes>
+					<Route path="/" element={<HomePage />} />
+					<Route path="/mens-shoes" element={<MensPage />} />
+					<Route path="/womens-shoes" element={<WomensPage />} />
+					<Route path="/kids-shoes" element={<KidsPage />} />
+					<Route path="/details/:id" element={<ProductDetails />} />
+					<Route path="/cart" element={<Cart />} />
+				</Routes>
+			</BrowserRouter>
+		</>
+	);
+};
 
 export default App;

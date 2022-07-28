@@ -1,0 +1,59 @@
+import React, { useEffect } from "react";
+import CartCard from "../../components/cart/CartCard";
+import { Container, Typography, Button, Box } from "@mui/material";
+import { useSelector, useDispatch } from "react-redux";
+import { calculateTotals, clearCart } from "../../features/cart/cartSlice";
+
+const Cart = () => {
+	const dispatch = useDispatch();
+
+	useEffect(() => {
+		dispatch(calculateTotals());
+	}, []);
+
+	const { cart, totalItems, totalPrice } = useSelector((state) => state.cart);
+	return (
+		<>
+			{cart.length === 0 ? (
+				<Container maxWidth="md">
+					<Typography variant="h4" textAlign="center" py={4}>
+						Your cart is empty
+					</Typography>
+				</Container>
+			) : (
+				<Container
+					sx={{
+						display: "flex",
+						flexDirection: "column",
+						alignItems: "center",
+					}}
+				>
+					<Typography variant="h2" py={4}>
+						Cart
+					</Typography>
+					{cart.map((item, i) => (
+						<CartCard key={i} item={item} />
+					))}
+					<Container maxWidth="md">
+						<Box
+							pt={4}
+							sx={{
+								width: "100%",
+								display: "flex",
+								justifyContent: "space-between",
+							}}
+						>
+							<Typography variant="h6">Total Items: {totalItems}</Typography>
+							<Button variant="contained" onClick={() => dispatch(clearCart())}>
+								Clear Cart
+							</Button>
+							<Typography variant="h6">Total Price: {totalPrice}</Typography>
+						</Box>
+					</Container>
+				</Container>
+			)}
+		</>
+	);
+};
+
+export default Cart;
