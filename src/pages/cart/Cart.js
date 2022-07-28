@@ -7,12 +7,12 @@ import { calculateTotals, clearCart } from "../../features/cart/cartSlice";
 const Cart = () => {
 	const dispatch = useDispatch();
 
+	const { cart, totalItems, totalPrice } = useSelector((state) => state.cart);
+
 	useEffect(() => {
 		dispatch(calculateTotals());
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, []);
-
-	const { cart, totalItems, totalPrice } = useSelector((state) => state.cart);
+	}, [cart]);
 	return (
 		<>
 			{cart.length === 0 ? (
@@ -48,7 +48,7 @@ const Cart = () => {
 							<Button variant="contained" onClick={() => dispatch(clearCart())}>
 								Clear Cart
 							</Button>
-							<Typography variant="h6">Total Price: {totalPrice}</Typography>
+							<Typography variant="h6">Total Price: ${totalPrice}</Typography>
 						</Box>
 					</Container>
 				</Container>
